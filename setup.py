@@ -37,7 +37,7 @@ setup(
     author='Corey Sterling',
     author_email='coreytsterling@gmail.com',
     install_requires=[
-        "wai.annotations.core>=0.1.0",
+        "wai.annotations.core>=0.1.1",
     ],
     entry_points={
         "wai.annotations.plugins": [
