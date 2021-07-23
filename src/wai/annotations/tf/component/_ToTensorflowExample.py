@@ -4,7 +4,7 @@ from typing import Tuple, List, Dict
 import numpy as np
 
 from wai.common.adams.imaging.locateobjects import LocatedObjects
-from wai.common.cli.options import FlagOption
+from wai.common.cli.options import FlagOption, TypedOption
 
 from wai.annotations.core.component import ProcessorComponent
 from wai.annotations.core.stream import ThenFunction, DoneFunction
@@ -34,6 +34,16 @@ class ToTensorflowExample(
         help="outputs masks in the dense numerical format instead of PNG-encoded"
     )
 
+    source_id_type: bool = TypedOption(
+        "--source-id-type",
+        type=str,
+        choices=["filename", "numeric-dummy"],
+        help="by default, the filename gets stored in the 'source_id' field, but some algorithms try to convert it "
+             + "into a number and fail with 'StringToNumberOp could not correctly convert string'; in which case you "
+             + "can use 'numeric-dummy' (see https://github.com/google/automl/issues/307)",
+        default="filename"
+    )
+
     _label_class_lookup: Dict[str, int] = ProcessState(lambda self: {})
 
     def process_element(
@@ -56,12 +66,20 @@ class ToTensorflowExample(
         lefts, rights, tops, bottoms, labels, classes, masks, is_crowds, areas = \
             self.process_located_objects(located_objects, image_info.width, image_info.height)
 
+        # generate the source_id
+        if self.source_id_type == "filename":
+            source_id = image_info.filename.encode("utf-8")
+        elif self.source_id_type == "numeric-dummy":
+            source_id = "0".encode("utf-8")
+        else:
+            raise Exception("Unhandled source_id type: %s" % self.source_id_type)
+
         # Create the example features
         feature_dict = {
             'image/height': make_feature(image_info.height),
             'image/width': make_feature(image_info.width),
             'image/filename': make_feature(image_info.filename.encode("utf-8")),
-            'image/source_id': make_feature(image_info.filename.encode("utf-8")),
+            'image/source_id': source_id,
             'image/encoded': make_feature(image_info.data),
             'image/format': make_feature(image_info.format.get_default_extension().encode("utf-8")),
             'image/key/sha256': make_feature(hashlib.sha256(image_info.data).hexdigest().encode("utf-8")),
