@@ -79,7 +79,7 @@ class ToTensorflowExample(
             'image/height': make_feature(image_info.height),
             'image/width': make_feature(image_info.width),
             'image/filename': make_feature(image_info.filename.encode("utf-8")),
-            'image/source_id': source_id,
+            'image/source_id': make_feature(source_id),
             'image/encoded': make_feature(image_info.data),
             'image/format': make_feature(image_info.format.get_default_extension().encode("utf-8")),
             'image/key/sha256': make_feature(hashlib.sha256(image_info.data).hexdigest().encode("utf-8")),
