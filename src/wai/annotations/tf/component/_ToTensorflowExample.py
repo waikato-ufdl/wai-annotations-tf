@@ -1,4 +1,5 @@
 import hashlib
+import time
 from typing import Tuple, List, Dict
 
 import numpy as np
@@ -70,7 +71,7 @@ class ToTensorflowExample(
         if self.source_id_type == "filename":
             source_id = image_info.filename.encode("utf-8")
         elif self.source_id_type == "numeric-dummy":
-            source_id = "0".encode("utf-8")
+            source_id = str(round(time.time() * 1000 * 1000)).encode("utf-8")
         else:
             raise Exception("Unhandled source_id type: %s" % self.source_id_type)
 
