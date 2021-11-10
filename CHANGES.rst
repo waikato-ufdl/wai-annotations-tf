@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.2.0 (2021-11-11)
+------------------
+
+- Source ID for "numeric-dummy" mode is now a unique timestamp.
+- Added dependencies for Tensorflow, Numpy.
+- Bug fixes.
+
 1.1.0 (2021-07-28)
 ------------------
 - Added ``--source-id-type`` option to avoid "StringToNumberOp could not correctly
