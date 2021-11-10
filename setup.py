@@ -39,6 +39,7 @@ setup(
     install_requires=[
         "wai.annotations.core>=0.1.1",
         "tensorflow>=2.6.0,<2.7.0",
+        "numpy<1.20"
     ],
     entry_points={
         "wai.annotations.plugins": [
