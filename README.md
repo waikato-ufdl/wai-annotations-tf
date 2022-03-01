@@ -1,6 +1,10 @@
 # wai-annotations-tf
 wai.annotations module for managing TFRecords datasets.
 
+The manual is available here:
+
+https://ufdl.cms.waikato.ac.nz/wai-annotations-manual/
+
 ## Plugins
 ### FROM-TF-OD
 Reads image object-detection annotations in the TFRecords binary format
