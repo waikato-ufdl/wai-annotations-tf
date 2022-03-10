@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.0 (2022-03-10)
+------------------
+
+- Upgraded tensorflow dependency to allow for 2.7.*.
+
 1.2.0 (2021-11-11)
 ------------------
 

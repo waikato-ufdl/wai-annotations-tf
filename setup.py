@@ -33,13 +33,13 @@ setup(
         "wai",
         "wai.annotations"
     ],
-    version="1.2.0",
+    version="1.3.0",
     author='Corey Sterling',
     author_email='coreytsterling@gmail.com',
     install_requires=[
         "wai.annotations.core>=0.1.1",
-        "tensorflow>=2.6.0,<2.7.0",
-        "numpy<1.20"
+        "tensorflow>=2.6.0,<2.8.0",
+        "numpy"
     ],
     entry_points={
         "wai.annotations.plugins": [
